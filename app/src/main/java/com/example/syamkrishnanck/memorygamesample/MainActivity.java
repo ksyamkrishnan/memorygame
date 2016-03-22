@@ -76,7 +76,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 imageGridView.setVisibility(View.VISIBLE);
                 startB.setText("STOP");
             } else {
-                Toast.makeText(this, "Check Internet Connectivity", Toast.LENGTH_SHORT);
+                Toast.makeText(this, "Check Internet Connectivity", Toast.LENGTH_SHORT).show();
             }
         } else {
             new AsyncTask<Void, Void, Void>() {
