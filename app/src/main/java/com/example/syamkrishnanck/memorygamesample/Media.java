@@ -6,9 +6,11 @@ package com.example.syamkrishnanck.memorygamesample;
  */
 public class Media {
     String m;
+
     public String getM() {
         return m;
     }
+
     public void setM(String m) {
         this.m = m;
     }

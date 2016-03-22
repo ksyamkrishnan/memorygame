@@ -15,10 +15,10 @@ public class ServiceGenerator {
     public static final String API_BASE_URL = "https://api.flickr.com";
 
 
-
     static Retrofit retrofit = new Retrofit.Builder().baseUrl(API_BASE_URL)
             .addConverterFactory(new ToStringConverterFactory())
             .build();
+
     public static FlickerClient createService() {
         return retrofit.create(FlickerClient.class);
     }

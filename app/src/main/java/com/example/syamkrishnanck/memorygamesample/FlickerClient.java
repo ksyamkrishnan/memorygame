@@ -15,5 +15,5 @@ import retrofit.http.GET;
  */
 public interface FlickerClient {
     @GET("/services/feeds/photos_public.gne?format=json")
-     Call<String> feeds();
+    Call<String> feeds();
 }

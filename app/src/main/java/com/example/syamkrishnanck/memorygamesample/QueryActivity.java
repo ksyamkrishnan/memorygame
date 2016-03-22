@@ -15,7 +15,8 @@ import java.util.List;
 
 public class QueryActivity extends AppCompatActivity {
 
-    int fragment_container=0;
+    int fragment_container = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,11 +33,12 @@ public class QueryActivity extends AppCompatActivity {
         loadFragmentWithTag(queryFragment, false, "sd", "ds");
 
     }
+
     public void loadFragmentWithTag(Fragment fragment, boolean pushToBackstack, String backstackName, String tag) {
-        backstackName= fragment.getClass().getSimpleName();
-        tag= fragment.getClass().getSimpleName();
+        backstackName = fragment.getClass().getSimpleName();
+        tag = fragment.getClass().getSimpleName();
         Fragment oldFragment = getSupportFragmentManager().findFragmentByTag(fragment.getClass().getSimpleName());
-        if(oldFragment!=null) {
+        if (oldFragment != null) {
             getSupportFragmentManager().beginTransaction().remove(oldFragment).commit();
         }
 

@@ -50,13 +50,13 @@ public class ImageListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder listViewHolder;
-        if(convertView == null){
+        if (convertView == null) {
             listViewHolder = new ViewHolder();
             convertView = layoutInflater.inflate(R.layout.image_holder_layout, parent, false);
-            listViewHolder.appIcon = (ImageView)convertView.findViewById(R.id.app_icon);
+            listViewHolder.appIcon = (ImageView) convertView.findViewById(R.id.app_icon);
             convertView.setTag(listViewHolder);
-        }else{
-            listViewHolder = (ViewHolder)convertView.getTag();
+        } else {
+            listViewHolder = (ViewHolder) convertView.getTag();
         }
         Glide.with(context.getApplicationContext()).load(imageUrlList.get(position)).centerCrop().centerCrop()
                 .placeholder(R.mipmap.ic_launcher)

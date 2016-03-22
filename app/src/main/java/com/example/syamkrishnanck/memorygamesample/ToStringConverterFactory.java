@@ -1,9 +1,11 @@
 package com.example.syamkrishnanck.memorygamesample;
 
 import retrofit.Converter;
+
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.ResponseBody;
+
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
@@ -15,7 +17,8 @@ class ToStringConverterFactory extends Converter.Factory {
     public Converter<ResponseBody, ?> fromResponseBody(Type type, Annotation[] annotations) {
         if (String.class.equals(type)) {
             return new Converter<ResponseBody, String>() {
-                @Override public String convert(ResponseBody value) throws IOException {
+                @Override
+                public String convert(ResponseBody value) throws IOException {
                     return value.string();
                 }
             };
@@ -23,10 +26,12 @@ class ToStringConverterFactory extends Converter.Factory {
         return null;
     }
 
-    @Override public Converter<?, RequestBody> toRequestBody(Type type, Annotation[] annotations) {
+    @Override
+    public Converter<?, RequestBody> toRequestBody(Type type, Annotation[] annotations) {
         if (String.class.equals(type)) {
             return new Converter<String, RequestBody>() {
-                @Override public RequestBody convert(String value) throws IOException {
+                @Override
+                public RequestBody convert(String value) throws IOException {
                     return RequestBody.create(MEDIA_TYPE, value);
                 }
             };

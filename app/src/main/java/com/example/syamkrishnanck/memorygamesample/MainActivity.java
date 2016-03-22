@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -69,10 +70,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (!timerHasStarted) {
-            countDownTimer.start();
-            timerHasStarted = true;
-            imageGridView.setVisibility(View.VISIBLE);
-            startB.setText("STOP");
+            if (AppUtil.isNetworkConnected(this)) {
+                countDownTimer.start();
+                timerHasStarted = true;
+                imageGridView.setVisibility(View.VISIBLE);
+                startB.setText("STOP");
+            } else {
+                Toast.makeText(this, "Check Internet Connectivity", Toast.LENGTH_SHORT);
+            }
         } else {
             new AsyncTask<Void, Void, Void>() {
 
@@ -97,7 +102,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         @Override
         public void onFinish() {
-           Intent intent = new Intent(getApplicationContext(), QueryActivity.class);
+            Intent intent = new Intent(getApplicationContext(), QueryActivity.class);
             intent.putStringArrayListExtra("image", (ArrayList<String>) imageList);
             startActivity(intent);
         }
@@ -122,14 +127,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     GsonBuilder gsonbuilder = new GsonBuilder();
                     Gson gson = gsonbuilder.create();
                     List<Feed> feedList = null;
-                        JSONObject jsonObj = new JSONObject(jsonRes);
-                        Type listType = new TypeToken<List<Feed>>() {
-                        }.getType();
-                        feedList = gson.fromJson(jsonObj.getString("items"), listType);
-                        resetAdapter(AppUtil.getUrlList(feedList));
-                }catch (Exception e){
+                    JSONObject jsonObj = new JSONObject(jsonRes);
+                    Type listType = new TypeToken<List<Feed>>() {
+                    }.getType();
+                    feedList = gson.fromJson(jsonObj.getString("items"), listType);
+                    resetAdapter(AppUtil.getUrlList(feedList));
+                } catch (Exception e) {
                 }
             }
+
             @Override
             public void onFailure(Throwable t) {
             }

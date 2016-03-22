@@ -35,6 +35,7 @@ public class QueryFragment extends Fragment {
     String currentImageView;
     List<String> imageList = new ArrayList<>();
     boolean[] sucess = new boolean[15];
+
     public QueryFragment() {
         // Required empty public constructor
     }
@@ -51,15 +52,16 @@ public class QueryFragment extends Fragment {
         answer.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    try{
-                    hideKeybord();
-                    int searchText = Integer.parseInt(v.getText().toString());
-                    if (imageList.get(searchText).equalsIgnoreCase(currentImageView)) {
-                        Toast.makeText(getActivity(), "Sucess", Toast.LENGTH_SHORT).show();
-                        setQuestion();
-                    } else {
-                        Toast.makeText(getActivity(), "Sorry!!", Toast.LENGTH_SHORT).show();
-                    }}catch (Exception e){
+                    try {
+                        hideKeybord();
+                        int searchText = Integer.parseInt(v.getText().toString());
+                        if (imageList.get(searchText).equalsIgnoreCase(currentImageView)) {
+                            Toast.makeText(getActivity(), "Sucess", Toast.LENGTH_SHORT).show();
+                            setQuestion();
+                        } else {
+                            Toast.makeText(getActivity(), "Sorry!!", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
                         Toast.makeText(getActivity(), "Sorry!!", Toast.LENGTH_SHORT).show();
                     }
                     return true;
@@ -72,22 +74,23 @@ public class QueryFragment extends Fragment {
     }
 
     private void setQuestion() {
-        Random random= new Random();
+
+        Random random = new Random();
         int i = random.nextInt(15);
         if (anchor == 9) {
             QueryActivity queryActivity = (QueryActivity) getActivity();
-            queryActivity.loadFragmentWithTag(new Sucess(),false,"","");
+            queryActivity.loadFragmentWithTag(new Sucess(), false, "", "");
             Toast.makeText(getActivity(), "Winnner", Toast.LENGTH_LONG).show();
             return;
         }
 
-        for (int y=0; y < 15; y++) {
-            if (imageList.get(i) != null && !imageList.get(i).isEmpty()&&sucess[i]==false) {
+        for (int y = 0; y < 15; y++) {
+            if (imageList.size() > 0 && imageList.get(i) != null && !imageList.get(i).isEmpty() && sucess[i] == false) {
                 currentImageView = imageList.get(i);
                 answer.setText("");
                 Glide.with(getActivity().getApplicationContext()).load(imageList.get(i)).centerCrop().centerCrop()
                         .into(imageView);
-                sucess[i]=true;
+                sucess[i] = true;
                 anchor++;
                 return;
             }
@@ -99,7 +102,7 @@ public class QueryFragment extends Fragment {
         try {
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Service.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
-        }catch (Exception exception){
+        } catch (Exception exception) {
         }
 
     }
